@@ -277,7 +277,11 @@ elseif(MSVC)
   # Visual Studio pedantic build settings
   # warning C4512: assignment operator could not be generated
   # warning C4316: object allocated on the heap may not be aligned
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX /wd4512 /wd4316")
+  if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D_ITERATOR_DEBUG_LEVEL=0 /W4 /WX /wd4512 /wd4316")
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX /wd4512 /wd4316")
+  endif()
 
   # multi-core build.
   add_definitions("/MP")
